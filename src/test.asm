@@ -1,8 +1,18 @@
+%define byte db ; 8 bits
+%define word dw ; 16 bits
+%define double dd ; 32 bits
+
+%macro exit_program 0
+	end mov rax, 60 
+	mov rdi, 0 
+	syscall
+%endmacro
+
 global main
 
 section .data
-message: db "hejdå"
-len: equ $-message
+message: byte "hejdå"
+length: equ $-message
 
 section .text 
 
@@ -12,15 +22,9 @@ main:
 	mov rax, 1
 	mov rdi, 1
 	mov rsi, message
-	mov rdx, len
+	mov rdx, length
 	syscall
-
-%define kiss (x) mov rax, x 
-
-end:
-	mov rax, 60
-	mov rdi, 0
-      syscall   
+	exit_program
 
 
 
