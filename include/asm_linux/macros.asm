@@ -17,20 +17,23 @@
 %define define_word dw ; 16 bits
 %define define_double dd ; 32 bits
 
-%define syscall_number_exit 60
-%define syscall_number_write 1
+%define sys_exit 60
+%define sys_write 1
+%define sys_read 2
+
+%define fd_stdout 1
 
 
 
-%macro exit_program 0
-	mov rax, syscall_number_exit 
+%macro exit 0
+	mov rax, sys_exit 
 	mov rdi, 0 ; int status 
 	syscall
 %endmacro
 
 %macro cout 2
-	mov rax, syscall_number_write
-	mov arg_0, 1
+	mov rax, sys_write
+	mov arg_0, fd_stdout
 	mov arg_1, %1
 	mov arg_2, %2
 	syscall

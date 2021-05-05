@@ -11,16 +11,9 @@ section .text
 
 
 
-main: 
+main:
 	cout message, length
-	mov rbx, message
-	mov rax, length
-
-loop:
-	mov rax, 3
-	push rax
-	push 4
-	exit_program
+	exit
 
 
 
