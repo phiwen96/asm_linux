@@ -17,11 +17,9 @@ main:
 	mov rax, length
 
 loop:
-	cout [rax], 2
-
-
-	cout message, length
-
+	mov rax, 3
+	push rax
+	push 4
 	exit_program
 
 

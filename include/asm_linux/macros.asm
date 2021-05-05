@@ -24,7 +24,7 @@
 
 %macro exit_program 0
 	mov rax, syscall_number_exit 
-	mov rdi, 1 ; int status 
+	mov rdi, 0 ; int status 
 	syscall
 %endmacro
 
