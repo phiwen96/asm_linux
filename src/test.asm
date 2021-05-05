@@ -19,7 +19,7 @@ _start:
 	mov rbx, 999
 
 printloop:
-	cout loop, loop_length
+	cout(loop, loop_length)
 	mov rbx, loop
 	inc byte [rbx]
 	cmp byte [rbx], '9'

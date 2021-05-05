@@ -13,6 +13,8 @@
 %define arg_4 r8
 %define arg_5 r9
 
+%define arg(x) arg_ %+ x
+
 %define define_byte db ; 8 bits
 %define define_word dw ; 16 bits
 %define define_double dd ; 32 bits
@@ -25,29 +27,38 @@
 %define fd_stdin 0 ; file descriptor 0: Standard Input
 
 
-
+; ####################################################
+; exit
+; ####################################################
 %macro exit 0
 	mov rax, sys_exit 
 	mov rdi, 0 ; int status 
 	syscall
 %endmacro
 
-%macro cout 2
+
+; ####################################################
+; cout (str, len)
+;
+; print string to screen 
+; ####################################################
+%macro _cout 2
 	mov rax, sys_write
-	mov arg_0, fd_stdout
+	mov arg (0), fd_stdout
 	mov arg_1, %1
 	mov arg_2, %2
 	syscall
 %endmacro
 
+%define cout(str, len) _cout str, len
 
-/*
-####################################################
-"Scratch" registers, any function is allowed 
-to overwrite, and use for anything you want 
-without asking anybody.
-####################################################
-*/
+
+
+; ####################################################
+; "Scratch" registers, any function is allowed 
+; to overwrite, and use for anything you want 
+; without asking anybody.
+; ####################################################
 %define scratch_0 rax 
 %define scratch_1 rcx 
 %define scratch_2 rdx 
@@ -58,13 +69,13 @@ without asking anybody.
 %define scratch_7 r10 
 %define scratch_8 r11 
 
-/*
-####################################################
-"Preserved" registers have to be put back 
-("save" the register) if you use them.
-####################################################
-*/
+%define scratch(x) scratch_ %+ x
 
+
+; ####################################################
+; "Preserved" registers have to be put back 
+; ("save" the register) if you use them.
+; ####################################################
 %define preserved_0 rbx 
 %define preserved_1 rsp
 %define preserved_2 rbp 
@@ -72,6 +83,9 @@ without asking anybody.
 %define preserved_4 r13 
 %define preserved_5 r14
 %define preserved_6 r15 
+
+%define preserved(x) preserved_ %+ x
+
 
 ; %macro 
 ; 	push rax 
