@@ -15,5 +15,4 @@ foreach (file ${ASSEMBLY_FILES})
 	get_filename_component (name ${file} NAME_WE)
 	add_executable (${name} ${file})
 	target_include_directories (${name} PUBLIC ${CMAKE_SOURCE_DIR}/include/asm_linux)
-
 endforeach ()

@@ -1,17 +1,10 @@
-%define byte db ; 8 bits
-%define word dw ; 16 bits
-%define double dd ; 32 bits
 %include "macros.asm"
-%macro exit_program 0
-	end mov rax, 60 
-	mov rdi, 0 
-	syscall
-%endmacro
+
 
 global main
 
 section .data
-message: byte "hejdå"
+message: define_byte "hejdå", 10
 length: equ $-message
 
 section .text 
@@ -19,12 +12,18 @@ section .text
 
 
 main: 
-	mov rax, 1
-	mov rdi, 1
-	mov rsi, message
-	mov rdx, length
-	syscall
+	cout message, length
+	mov rbx, message
+	mov rax, length
+
+loop:
+	cout [rax], 2
+
+
+	cout message, length
+
 	exit_program
+
 
 
 
