@@ -4,28 +4,56 @@
 global _start
 
 section .data
-message: define_byte "hejdå", 10
+message: define_byte "Ahe{jda", 10
 length: equ $-message
-loop: db '0 >>', 10
-loop_length equ $-loop
+
 
 section .text 
 
-_start:
+%assign CAP 'a' - 'A'
 
+_start:
+	mov preserved (0), message
+	mov preserved (1), length
+
+	mov preserved (2), length
+
+loop:
+	cmp byte [preserved (0)], 'a'
+	jb end_loop
+
+	cmp byte [preserved (0)], 'z'
+	ja end_loop
 	
+
+	sub byte [preserved (0)], CAP
+	
+	; cmp byte [preserved (message)], 'a'
+
+
+
+end_loop:
+	inc preserved (0)
+	dec preserved (2)
+	cout (message, length)
+	jnz loop
+	
+
+jmp end
 
 
 	mov rbx, 999
 
-printloop:
-	cout(loop, loop_length)
-	mov rbx, loop
-	inc byte [rbx]
-	cmp byte [rbx], '9'
-	; popad
-	jle printloop
-	
-	
 
+
+
+
+
+
+end:
 	exit
+
+
+make_upper:
+
+

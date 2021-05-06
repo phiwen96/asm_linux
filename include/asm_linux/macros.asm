@@ -1,3 +1,6 @@
+%define quot "
+
+
 ; RAX 	System call number
 ; RDI 	1st argument
 ; RSI 	2nd argument
@@ -25,6 +28,10 @@
 
 %define fd_stdout 1 ; file descriptor 1: Standard Output
 %define fd_stdin 0 ; file descriptor 0: Standard Input
+
+
+%assign i 0
+%assign i i + 1
 
 
 ; ####################################################
@@ -93,3 +100,19 @@
 ; 	; push 
 ; %endmacro
 
+
+
+
+; printloop:
+; 	cout(loop, loop_length)
+; 	mov rbx, loop
+; 	inc byte [rbx]
+; 	cmp byte [rbx], '9'
+; 	; popad
+; 	jle printloop
+
+
+
+
+; bt eax, 4 ; Test bit 4 of AX
+; jnc quit ; We’re all done if bit 4 = 0
